@@ -2,6 +2,8 @@
 
 require('cross-fetch/polyfill');
 
+
+
 function addDestinationInfo(document, name, diameter, star, distance, moons, imageUrl) {
     // Here is the HTML formatting for our mission target div.
     /*
@@ -18,13 +20,31 @@ function addDestinationInfo(document, name, diameter, star, distance, moons, ima
  }
  
  function validateInput(testInput) {
-    
+     if (testInput === "") {
+        return "Empty";
+     } else if (isNaN(testInput)) {
+        return "Not a Number";
+     } else {
+        return "is a Number";
+     }
  }
  
  function formSubmission(document, list, pilot, copilot, fuelLevel, cargoLevel) {
-    
+
+        if (validateInput(pilot) === "Empty" || validateInput(copilot) === "Empty" || validateInput(fuelLevel) === "Empty" || validateInput(cargoLevel) === "Empty") {
+            alert("All fields are required.");
+            return;
+        } else if (validateInput(pilot) === "Not a Number" || validateInput(copilot) === "Not a Number" || validateInput(fuelLevel) === "Not a Number" || validateInput(cargoLevel) === "Not a Number") {
+            alert("Please enter valid information for all fields.");
+            return;
+        } else (validateInput = "is a Number");
+
+        document.getElementById("pilotStatus").innerHtml = `Pilot ${pilot} is ready for launch!`
+        document.getElementById("coPilotStatus").innerHtml = `CoPilot ${copilot} is ready for launch`
+        document.getElementById("fuelStatus").innerHTML = `Fuel level of ${fuelLevel} liters is ready for launch!`;
+        document.getElementById("cargoStatus").innerHTML = `Cargo mass of ${cargoLevel} kg is ready for launch!`;
  }
- 
+
  async function myFetch() {
      let planetsReturned;
  
